@@ -12,6 +12,7 @@ def get_full_rich_text(rich_text_array):
 # --- Main ---
 notion = Client(auth=NOTION_TOKEN)
 print(f"📥 正在讀取資料庫 ID: {DATABASE_ID}")
+print("📂 當前工作目錄：", os.getcwd())
 
 try:
     response = notion.databases.query(
