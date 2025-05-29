@@ -1,0 +1,36 @@
+name: Sync Notion to Markdown
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 每小時執行一次（你可以改成每天：0 0 * * *）
+  workflow_dispatch:      # 手動觸發
+
+jobs:
+  sync_notion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install notion-client
+
+      - name: Run Notion Sync Script
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: python src/scripts/notion-md.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/blog/
+          git commit -m "Update markdown from Notion" || echo "No changes to commit"
+          git push
