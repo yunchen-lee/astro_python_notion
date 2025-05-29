@@ -4,7 +4,8 @@ from notion_client import Client
 # ✏️ 請確認這兩個值是你自己的 API key 與資料庫 ID
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 DATABASE_ID = os.getenv("DATABASE_ID")
-OUTPUT_DIR = "../content/blog"  # 請視你執行位置調整，這裡是從 scripts/ 向上跳一層到 content/blog/
+# OUTPUT_DIR = "../content/blog"  # 請視你執行位置調整，這裡是從 scripts/ 向上跳一層到 content/blog/
+OUTPUT_DIR = "src/content/blog"
 
 def get_full_rich_text(rich_text_array):
     return "".join([rt.get("plain_text", "") for rt in rich_text_array])
