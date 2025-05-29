@@ -24,7 +24,7 @@ jobs:
       - name: Run Notion Sync Script
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          DATABASE_ID: ${{ secrets.DATABASE_ID }}
         run: python src/scripts/notion-md.py
 
       - name: Commit and Push Changes
