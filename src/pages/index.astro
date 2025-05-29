@@ -1,4 +1,41 @@
 ---
+import { getCollection } from 'astro:content'
+import type { CollectionEntry } from 'astro:content';
+
+
+const posts: CollectionEntry<'blog'>[] = await getCollection('blog');
+
+const enPosts = posts.filter(post => post.data.lang === 'en');
+const zhPosts = posts.filter(post => post.data.lang === 'zh-tw');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>All Blog Posts</title>
+  </head>
+  <body>
+    <h1>目前文章列表</h1>
+
+    <h2>en</h2>
+    <ul>
+      {enPosts.map(post => (
+        <li>{post.data.title}</li>
+      ))}
+    </ul>
+
+    <h2>zh-tw</h2>
+    <ul>
+      {zhPosts.map(post => (
+        <li>{post.data.title}</li>
+      ))}
+    </ul>
+  </body>
+</html>
+
+
+
+<!-- ---
 
 ---
 
@@ -16,4 +53,6 @@
 		<p>let's try it!</p>
 		<p>second update</p>
 	</body>
-</html>
+</html> -->
+
+
